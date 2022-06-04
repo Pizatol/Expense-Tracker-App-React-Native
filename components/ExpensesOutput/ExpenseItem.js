@@ -1,22 +1,24 @@
 import { StyleSheet, Text, View } from "react-native";
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { GlobalStyles } from "../../constants/styles";
 import { getFormattedDate } from "../../util/date";
 
-export default function ExpenseItem({id, description, amount, date }) {
-const navigation = useNavigation();
+export default function ExpenseItem({ id, description, amount, date }) {
+    const navigation = useNavigation();
 
-	const expensePressHandler = () => {
-		
-		navigation.navigate('ManageExpense', {
-            expenseId : id
+    const expensePressHandler = () => {
+        navigation.navigate("ManageExpense", {
+            expenseId: id,
         });
-	}
+    };
 
     return (
-        <Pressable onPress={expensePressHandler} style={({pressed}) => pressed && styles.pressed}>
+        <Pressable
+            onPress={expensePressHandler}
+            style={({ pressed }) => pressed && styles.pressed}
+        >
             <View style={styles.expenseItem}>
                 <View>
                     <Text style={[styles.textBase, styles.description]}>
@@ -38,9 +40,9 @@ const navigation = useNavigation();
 }
 
 const styles = StyleSheet.create({
-	pressed : {
-		opacity : .7,
-	},
+    pressed: {
+        opacity: 0.7,
+    },
     expenseItem: {
         padding: 12,
         marginVertical: 8,
@@ -65,15 +67,15 @@ const styles = StyleSheet.create({
     amountContainer: {
         paddingHorizontal: 10,
         paddingVertical: 4,
-		  marginRight : 8,
+        marginRight: 8,
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 4,
-		  minWidth : 80,
+        minWidth: 80,
     },
     amount: {
-        color: GlobalStyles.colors.primary500,    
+        color: GlobalStyles.colors.primary500,
         fontWeight: "bold",
     },
 });

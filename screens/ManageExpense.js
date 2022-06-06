@@ -10,13 +10,17 @@ import Button from "../components/UI/Button";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 import { GlobalStyles } from "../constants/styles";
+
 import { ExpensesContext } from "../store/expenses-context";
+import { storeExpense } from "../util/https";
 
 export default function ManageExpense({ route, navigation }) {
     const expensesCtx = useContext(ExpensesContext);
 
     const editedExpenseId = route.params?.expenseId;
     const isEditing = !!editedExpenseId;
+
+    const selectedExpense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -33,20 +37,12 @@ export default function ManageExpense({ route, navigation }) {
         navigation.goBack();
     };
 
-    const confirmHandler = () => {
+    const confirmHandler = (expenseData) => {
         if (isEditing) {
-            console.log(editedExpenseId);
-            expensesCtx.updateExpense(editedExpenseId, {
-                description: "test ....",
-                amount: 29.99,
-                date: new Date("2022-06-01"),
-            });
+            expensesCtx.updateExpense(editedExpenseId, expenseData);
         } else {
-            expensesCtx.addExpense({
-                description: "test",
-                amount: 19.99,
-                date: new Date("2022-06-04"),
-            });
+            storeExpense(expenseData);
+            expensesCtx.addExpense(expenseData);
         }
 
         navigation.goBack();
@@ -58,6 +54,7 @@ export default function ManageExpense({ route, navigation }) {
                 submitButtonLabel={isEditing ? "Update" : " Add"}
                 onCancel={cancelHandler}
                 onSubmit={confirmHandler}
+                defaultValues = {selectedExpense}
             />
 
             {isEditing && (

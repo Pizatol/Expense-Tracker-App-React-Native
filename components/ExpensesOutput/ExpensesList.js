@@ -21,15 +21,5 @@ export default function ExpensesList({ expenses }) {
 }
 
 const styles = StyleSheet.create({
-	container : {
-		
-	},
-	flatlistContainer: {
-		paddingTop : 30,
-	},
-	item : {		
-		textAlign : "center",
-		paddingVertical : 5, 
-		color : GlobalStyles.colors.primary50
-	}
+
 });

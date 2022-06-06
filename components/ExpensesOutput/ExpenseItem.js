@@ -26,8 +26,7 @@ export default function ExpenseItem({ id, description, amount, date }) {
                         {description}{" "}
                     </Text>
                     <Text style={styles.textBase}>
-                        {" "}
-                        {getFormattedDate(date)}{" "}
+                        {getFormattedDate(date)}
                     </Text>
                 </View>
 

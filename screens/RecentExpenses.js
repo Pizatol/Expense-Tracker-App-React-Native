@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
 
 import { ExpensesContext } from "../store/expenses-context";
@@ -7,11 +7,15 @@ import { getDateMinusDays } from "../util/date";
 import { fetchExpenses } from "../util/https";
 
 export default function RecentExpenses() {
+
     const expensesCtx = useContext(ExpensesContext);
+
+
 
     useEffect(() => {
         async function getExpenses() {
           const expenses =  await fetchExpenses();
+          expensesCtx.setExpense(expenses)
         }
         getExpenses();
     }, []);
